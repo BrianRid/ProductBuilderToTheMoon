@@ -4,16 +4,20 @@ import { Card } from "./card";
 interface ColumnProps {
   title: string;
   cards: CardType[];
+  indicatorClassName: string;
 }
 
-export function Column({ title, cards }: ColumnProps) {
+export function Column({ title, cards, indicatorClassName }: ColumnProps) {
   return (
-    <div className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-lg bg-zinc-100 p-3 dark:bg-zinc-900">
-      <h2 className="px-1 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-        {title}{" "}
-        <span className="text-zinc-400 dark:text-zinc-600">({cards.length})</span>
-      </h2>
-      <div className="flex flex-col gap-2">
+    <div className="flex min-w-[240px] flex-1 flex-col bg-panel">
+      <div className={`h-0.5 ${indicatorClassName}`} />
+      <div className="flex items-baseline justify-between px-4 py-3">
+        <h2 className="text-sm font-medium text-paper">{title}</h2>
+        <span className="font-mono text-xs tabular-nums text-paper-dim">
+          {String(cards.length).padStart(2, "0")}
+        </span>
+      </div>
+      <div className="flex flex-1 flex-col gap-2 px-4 pb-4">
         {cards.map((card) => (
           <Card key={card.id} card={card} />
         ))}
