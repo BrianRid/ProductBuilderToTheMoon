@@ -1,0 +1,14 @@
+export type ColumnId = "todo" | "in-progress" | "done";
+
+export interface Card {
+  id: string;
+  title: string;
+  columnId: ColumnId;
+}
+
+export interface BoardState {
+  cards: Card[];
+}
+
+// Extension seam: each workshop feature adds its own variant here.
+export type BoardAction = { type: "NOOP" };
