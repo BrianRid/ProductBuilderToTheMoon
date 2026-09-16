@@ -4,6 +4,10 @@ import { useBoard } from "@/board/board-context";
 const MAX_TITLE_LENGTH = 120;
 const EMPTY_TITLE_ERROR = "Un titre est nécessaire pour créer la carte.";
 
+const ERROR_FIELD = "border-abort ring-2 ring-abort/25";
+const RESTING_FIELD =
+  "border-line focus:border-signal focus:ring-2 focus:ring-signal/20";
+
 export function AddCardForm() {
   const { dispatch } = useBoard();
   const [isOpen, setIsOpen] = useState(false);
@@ -89,10 +93,12 @@ export function AddCardForm() {
             setError(null);
           }
         }}
-        className="rounded-md border border-line bg-panel-raised px-3 py-2 text-sm text-paper outline-none placeholder:text-paper-dim focus:border-signal focus:ring-2 focus:ring-signal/20"
+        className={`rounded-md border bg-panel-raised px-3 py-2 text-sm text-paper outline-none placeholder:text-paper-dim ${
+          error ? ERROR_FIELD : RESTING_FIELD
+        }`}
       />
       {error && (
-        <p id="add-card-error" role="alert" className="text-xs text-signal">
+        <p id="add-card-error" role="alert" className="text-[11px] text-abort">
           {error}
         </p>
       )}

@@ -26,9 +26,9 @@ Décidé explicitement, à ne pas implémenter dans cette PR :
 - **Survivre au rechargement.** C'est la feature 5.
 - **Modifier `components/card.tsx`.** Conséquence directe du choix
   d'identifiant, expliqué plus bas.
-- **Ajouter une couleur au design system.** `DESIGN.md` ne contient aucun jeton
-  d'erreur. Plutôt que d'en introduire un, l'erreur est signalée dans la
-  palette existante — voir « Signaler l'erreur sans jeton dédié ».
+- **Définir une couleur d'erreur.** Le jeton **Mission Abort** (`#d9614a`) est
+  arrivé dans le design system avec la feature 3 ; cette feature s'en sert, elle
+  ne le redéfinit pas.
 
 ## Comportement attendu
 
@@ -83,24 +83,26 @@ colonne ne doit pas effacer ce qu'on vient de taper.
 | Longueur | 120 caractères maximum, bloqués à la saisie par `maxLength`. Jamais de troncature silencieuse après coup |
 | Deux cartes de même titre | Autorisé. Aucune règle d'unicité : c'est un board, pas un registre |
 
-### Signaler l'erreur sans jeton dédié
+### Signaler l'erreur
 
-`DESIGN.md` demande, pour un champ en erreur, « un message textuel explicite en
-plus d'une variation colorée ; ne jamais détourner Mission Complete ». Mais la
-palette ne contient pas de couleur d'erreur : Launch Amber (action, focus),
-Mission Complete (terminé) et cinq neutres.
+`DESIGN.md` demande, pour un champ en erreur : « bordure et message en Mission
+Abort, avec un message textuel explicite — la couleur seule ne suffit jamais ».
 
-Le design system est pris **tel quel**, sans jeton ajouté. La variation colorée
-porte donc sur le **message**, affiché en Launch Amber sous le champ ; la
-bordure du champ garde son traitement de focus habituel. Mettre l'ambre sur la
-bordure aurait rendu l'erreur indistinguable du focus, précisément au moment où
-l'on renvoie le focus dans le champ.
+Le champ prend donc la bordure et l'anneau **Mission Abort** (`#d9614a`), et le
+message s'affiche dessous dans la même couleur.
 
 Message : `Un titre est nécessaire pour créer la carte.`
 
-Si une feature ultérieure a besoin d'un vrai état d'erreur coloré — la
-suppression (4) ou les échéances dépassées (7) — le sujet devra être porté au
-design system, pas résolu dans un coin.
+Les classes sont découpées comme dans `components/card.tsx` : une chaîne
+complète par état (`ERROR_FIELD` / `RESTING_FIELD`), jamais deux utilitaires de
+couleur concurrents sur le même élément — sinon c'est l'ordre du CSS généré qui
+tranche, pas l'ordre d'écriture.
+
+**Historique de cette décision.** Au moment d'écrire la spec, la palette ne
+contenait aucune couleur d'erreur : la première version portait la variation
+colorée sur le seul message, en Launch Amber, pour ne pas la rendre
+indistinguable du focus. La feature 3 a depuis introduit Mission Abort et
+précisé la règle ; cette feature s'y aligne.
 
 ### Accessibilité
 
