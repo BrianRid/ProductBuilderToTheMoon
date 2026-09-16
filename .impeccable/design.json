@@ -51,6 +51,12 @@
         "displayName": "Mission Complete",
         "canonical": "#7c9473",
         "tonalRamp": ["#172413", "#2d3e29", "#445940", "#5f7658", "#7c9473", "#9cb294", "#bed0b8", "#e3ecdf"]
+      },
+      "mission-abort": {
+        "role": "secondary",
+        "displayName": "Mission Abort",
+        "canonical": "#d9614a",
+        "tonalRamp": ["#27110d", "#50241b", "#7c372a", "#a94c3a", "#d9614a", "#e49080", "#eeb8ae", "#f8e1dc"]
       }
     },
     "typographyMeta": {

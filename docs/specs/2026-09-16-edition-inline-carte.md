@@ -172,15 +172,18 @@ Le rebase réécrivant l'historique, le push se fera avec `--force-with-lease`.
 
 ## Couleur d'erreur
 
-Le `DESIGN.md` exige « une variation colorée » pour les erreurs mais **ne
-définit aucune couleur d'erreur** : sa palette n'a que Launch Amber (réservé au
-focus, qui est déjà l'état normal de ce champ) et Mission Complete, que la
-consigne interdit explicitement de détourner.
+Le `DESIGN.md` exigeait « une variation colorée » pour les erreurs sans définir
+aucune couleur d'erreur : sa palette n'avait que Launch Amber (réservé au focus,
+donc déjà l'état normal de ce champ) et Mission Complete, que la consigne
+interdit explicitement de détourner.
 
-Le rouge chaud `#d9614a` est donc déclaré **localement dans `card.tsx`**, pas
-dans le `@theme` de `globals.css` : c'est une proposition en attendant un token
-officiel, et ça évite de toucher un fichier partagé pour une couleur qui n'est
-pas encore arbitrée.
+Le manque est comblé dans cette PR, en accord avec Thomas : **Mission Abort**
+(`#d9614a`), rouge chaud pour rester dans la famille nocturne de la palette. Le
+nom suit la convention du système, où `mission-complete` désigne déjà l'état
+positif. Le token est ajouté aux trois sources — `.impeccable/design.json`
+(rampe tonale comprise), `DESIGN.md` (palette + section Inputs / Fields) et
+`app/globals.css` (`--color-abort`) — et le composant le consomme via
+`border-abort` / `text-abort`, sans valeur en dur.
 
 ## Dépendances
 

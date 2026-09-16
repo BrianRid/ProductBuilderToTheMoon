@@ -2,9 +2,7 @@ import { useId, useState } from "react";
 import { useBoard } from "@/board/board-context";
 import type { Card as CardType } from "@/board/types";
 
-// The design system has no error colour yet: this warm red sits in the same
-// nocturnal family as the palette, pending an official token.
-const ERROR_BORDER = "border-[#d9614a] ring-[#d9614a]/25";
+const ERROR_BORDER = "border-abort ring-abort/25";
 const FOCUS_BORDER = "border-signal ring-signal/20";
 
 interface CardProps {
@@ -75,7 +73,7 @@ export function Card({ card }: CardProps) {
             }`}
           />
           {error && (
-            <p id={errorId} className="mt-2 text-[11px] text-[#d9614a]">
+            <p id={errorId} className="mt-2 text-[11px] text-abort">
               Le titre ne peut pas être vide — Échap pour annuler
             </p>
           )}
