@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { useDraggable } from "@dnd-kit/core";
 import { useBoard } from "@/board/board-context";
 import type { Card as CardType } from "@/board/types";
 
@@ -11,6 +12,9 @@ interface CardProps {
 
 export function Card({ card }: CardProps) {
   const { dispatch } = useBoard();
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: card.id,
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [draft, setDraft] = useState(card.title);
   const [error, setError] = useState(false);
@@ -47,7 +51,16 @@ export function Card({ card }: CardProps) {
   }
 
   return (
-    <div className="border-l-2 border-line bg-panel-raised px-3 py-2.5 text-sm text-paper transition-colors hover:border-signal">
+    <div
+      ref={setNodeRef}
+      {...(isEditing ? {} : listeners)}
+      {...attributes}
+      className={`cursor-grab touch-none border-l-2 bg-panel-raised px-3 py-2.5 text-sm text-paper shadow-[0_2px_8px_rgb(0_0_0_/_0.18)] transition-colors ${
+        isDragging
+          ? "border-line opacity-40"
+          : "border-line hover:border-signal hover:shadow-[0_6px_18px_rgb(0_0_0_/_0.24)]"
+      }`}
+    >
       {isEditing ? (
         <>
           <input
@@ -81,6 +94,17 @@ export function Card({ card }: CardProps) {
       ) : (
         <p onDoubleClick={startEditing}>{card.title}</p>
       )}
+      <p className="mt-1 font-mono text-[11px] text-paper-dim">#{serial}</p>
+    </div>
+  );
+}
+
+export function CardOverlay({ card }: CardProps) {
+  const serial = card.id.replace(/\D/g, "").padStart(2, "0");
+
+  return (
+    <div className="cursor-grabbing border-l-2 border-signal bg-panel-raised px-3 py-2.5 text-sm text-paper shadow-[0_6px_18px_rgb(0_0_0_/_0.24)]">
+      <p>{card.title}</p>
       <p className="mt-1 font-mono text-[11px] text-paper-dim">#{serial}</p>
     </div>
   );
