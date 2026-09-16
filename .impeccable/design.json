@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-16T16:18:03Z",
+  "title": "Design System: Product Builder To The Moon",
+  "extensions": {
+    "colorMeta": {
+      "space-ink": {
+        "role": "neutral",
+        "displayName": "Space Ink",
+        "canonical": "#14120f",
+        "tonalRamp": ["#14120f", "#2d2923", "#494238", "#665e51", "#857b6c", "#a69b8b", "#c9c0b4", "#eee9e2"]
+      },
+      "command-panel": {
+        "role": "neutral",
+        "displayName": "Command Panel",
+        "canonical": "#1c1a16",
+        "tonalRamp": ["#171511", "#302d27", "#4b463d", "#686157", "#877e72", "#a89e92", "#cbc3b9", "#eeeae5"]
+      },
+      "raised-module": {
+        "role": "neutral",
+        "displayName": "Raised Module",
+        "canonical": "#242019",
+        "tonalRamp": ["#18140e", "#332d23", "#4e4637", "#6b604e", "#897c67", "#aa9d87", "#ccc3b4", "#efeae2"]
+      },
+      "structural-line": {
+        "role": "neutral",
+        "displayName": "Structural Line",
+        "canonical": "#3a3226",
+        "tonalRamp": ["#1d1811", "#3a3226", "#574b3a", "#746650", "#92816a", "#b09e86", "#cfbfab", "#efe8dd"]
+      },
+      "lunar-paper": {
+        "role": "neutral",
+        "displayName": "Lunar Paper",
+        "canonical": "#f3ede2",
+        "tonalRamp": ["#29251f", "#463f35", "#645b4e", "#83786a", "#a39889", "#c3b9aa", "#ddd5c9", "#f3ede2"]
+      },
+      "telemetry-muted": {
+        "role": "neutral",
+        "displayName": "Telemetry Muted",
+        "canonical": "#9c9284",
+        "tonalRamp": ["#29251f", "#443e35", "#60584d", "#7d7466", "#9c9284", "#b8afa3", "#d5cec5", "#f1ece6"]
+      },
+      "launch-amber": {
+        "role": "primary",
+        "displayName": "Launch Amber",
+        "canonical": "#ffb454",
+        "tonalRamp": ["#382000", "#603900", "#895400", "#b77114", "#df9031", "#ffb454", "#ffd097", "#ffedda"]
+      },
+      "mission-complete": {
+        "role": "secondary",
+        "displayName": "Mission Complete",
+        "canonical": "#7c9473",
+        "tonalRamp": ["#172413", "#2d3e29", "#445940", "#5f7658", "#7c9473", "#9cb294", "#bed0b8", "#e3ecdf"]
+      }
+    },
+    "typographyMeta": {
+      "title": {
+        "displayName": "Command Title",
+        "purpose": "Product title and primary screen identity."
+      },
+      "body": {
+        "displayName": "Operational Body",
+        "purpose": "Card titles, instructions and compact content."
+      },
+      "label": {
+        "displayName": "Telemetry Label",
+        "purpose": "Counts, IDs and short machine-like status values."
+      }
+    },
+    "shadows": [
+      {
+        "name": "module-rest",
+        "value": "0 2px 8px rgb(0 0 0 / 0.18)",
+        "purpose": "Quiet separation for cards and interactive fields."
+      },
+      {
+        "name": "module-active",
+        "value": "0 6px 18px rgb(0 0 0 / 0.24)",
+        "purpose": "Hover, focus and drag feedback for active modules."
+      }
+    ],
+    "motion": [
+      {
+        "name": "signal-shift",
+        "value": "150ms ease-out",
+        "purpose": "Color, border and shadow transitions on compact controls."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "column-overflow",
+        "value": "720px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main action for a focused workflow.",
+      "html": "<button class=\"ds-btn-primary\">ADD CARD</button>",
+      "css": ".ds-btn-primary { background: #ffb454; color: #14120f; border: 1px solid #ffb454; border-radius: 6px; padding: 8px 12px; font: 600 12px/1.5 'IBM Plex Sans', sans-serif; transition: filter 150ms ease-out, box-shadow 150ms ease-out; } .ds-btn-primary:hover { filter: brightness(.94); box-shadow: 0 2px 8px rgb(0 0 0 / .18); } .ds-btn-primary:focus-visible { outline: 2px solid #ffb454; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "description": "A quieter action that stays inside the tonal hierarchy.",
+      "html": "<button class=\"ds-btn-secondary\">CANCEL</button>",
+      "css": ".ds-btn-secondary { background: #242019; color: #f3ede2; border: 1px solid #3a3226; border-radius: 6px; padding: 8px 12px; font: 500 12px/1.5 'IBM Plex Sans', sans-serif; transition: border-color 150ms ease-out, box-shadow 150ms ease-out; } .ds-btn-secondary:hover { border-color: #9c9284; box-shadow: 0 2px 8px rgb(0 0 0 / .18); } .ds-btn-secondary:focus-visible { outline: 2px solid #ffb454; outline-offset: 2px; }"
+    },
+    {
+      "name": "Board Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A compact work item with a structural state rail and telemetry ID.",
+      "html": "<article class=\"ds-card\"><p class=\"ds-card-title\">Carte d’exemple</p><p class=\"ds-card-id\">#01</p></article>",
+      "css": ".ds-card { background: #242019; color: #f3ede2; border-left: 2px solid #3a3226; padding: 10px 12px; box-shadow: 0 2px 8px rgb(0 0 0 / .18); transition: border-color 150ms ease-out, box-shadow 150ms ease-out; } .ds-card:hover { border-left-color: #ffb454; box-shadow: 0 6px 18px rgb(0 0 0 / .24); } .ds-card-title { margin: 0; font: 400 14px/1.5 'IBM Plex Sans', sans-serif; } .ds-card-id { margin: 4px 0 0; color: #9c9284; font: 400 11px/1.5 'IBM Plex Mono', monospace; } .ds-card:focus-within { outline: 2px solid #ffb454; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "A compact field for creating and editing board content.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Card title\" />",
+      "css": ".ds-input { background: #242019; color: #f3ede2; border: 1px solid #3a3226; border-radius: 6px; padding: 8px 12px; font: 400 14px/1.5 'IBM Plex Sans', sans-serif; box-shadow: 0 2px 8px rgb(0 0 0 / .18); transition: border-color 150ms ease-out, box-shadow 150ms ease-out; } .ds-input::placeholder { color: #9c9284; } .ds-input:hover { border-color: #9c9284; } .ds-input:focus-visible { border-color: #ffb454; box-shadow: 0 0 0 3px rgb(255 180 84 / .16); outline: none; }"
+    },
+    {
+      "name": "Status Pill",
+      "kind": "chip",
+      "refersTo": "status-pill",
+      "description": "A global mission status using signal color and tabular telemetry.",
+      "html": "<div class=\"ds-status\"><span class=\"ds-status-dot\"></span><span class=\"ds-status-count\">01</span><span class=\"ds-status-label\">carte en vol</span></div>",
+      "css": ".ds-status { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgb(255 180 84 / .3); border-radius: 9999px; background: rgb(255 180 84 / .1); padding: 4px 12px; } .ds-status-dot { width: 6px; height: 6px; border-radius: 9999px; background: #ffb454; } .ds-status-count { color: #ffb454; font: 400 12px/1.5 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; } .ds-status-label { color: #9c9284; font: 400 12px/1.5 'IBM Plex Sans', sans-serif; }"
+    },
+    {
+      "name": "Board Column Header",
+      "kind": "custom",
+      "description": "A compact operational heading that pairs a section name with a telemetry count.",
+      "html": "<header class=\"ds-column-header\"><span class=\"ds-column-title\">In Progress</span><span class=\"ds-column-count\">03</span></header>",
+      "css": ".ds-column-header { display: flex; align-items: baseline; justify-content: space-between; background: #1c1a16; border-top: 2px solid #ffb454; padding: 12px 16px; } .ds-column-title { color: #f3ede2; font: 500 14px/1.5 'IBM Plex Sans', sans-serif; } .ds-column-count { color: #9c9284; font: 400 12px/1.5 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Orbital Mission Control",
+    "overview": "Product Builder To The Moon ressemble à un centre de contrôle orbital conçu pour une équipe produit : précis, concentré et technique, sans devenir froid. Le fond presque noir et les surfaces brunes créent un environnement calme ; l’ambre agit comme un signal rare qui guide vers l’activité en cours. L’interface privilégie une densité utile, des séparations structurelles nettes et une typographie compacte. Les composants restent sobres au repos. Les interactions les plus importantes gagnent une légère élévation, comme des modules que l’on active sur une console.",
+    "keyCharacteristics": [
+      "Palette nocturne chaude, jamais bleutée ni clinique.",
+      "Ambre réservé aux signaux actifs, aux actions principales et aux états de focus.",
+      "IBM Plex Sans pour la lecture, IBM Plex Mono pour la télémétrie et les identifiants.",
+      "Géométrie principalement rectiligne, adoucie seulement pour les contrôles et les statuts.",
+      "Profondeur discrète : structure tonale au repos, légère élévation pour les cartes interactives."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Scarcity Rule",
+        "body": "Launch Amber doit rester rare : il indique une action, un focus ou une activité réelle, jamais une décoration de fond.",
+        "section": "colors"
+      },
+      {
+        "name": "The Telemetry Rule",
+        "body": "Réserver IBM Plex Mono aux données brèves et scannables ; ne pas l’utiliser pour des paragraphes ou des titres éditoriaux.",
+        "section": "typography"
+      },
+      {
+        "name": "The Controlled Lift Rule",
+        "body": "Seuls les éléments manipulables gagnent une ombre ; la structure du board reste plate afin de préserver la lisibilité.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do préserver le contraste Lunar Paper sur les fonds sombres et Telemetry Muted uniquement pour le contenu secondaire.",
+      "Do utiliser des multiples de 4px et conserver le rythme compact du board.",
+      "Do associer toute couleur d’état à un libellé, un symbole ou une position reconnaissable.",
+      "Do employer l’élévation uniquement pour indiquer qu’un module peut être manipulé.",
+      "Do maintenir une largeur minimale de 240px par colonne sur les petits écrans."
+    ],
+    "donts": [
+      "Don't étendre Launch Amber à de grandes surfaces ou à des éléments purement décoratifs.",
+      "Don't introduire des dégradés, du glassmorphism ou des ombres bleutées dans cet univers chaud et matériel.",
+      "Don't arrondir systématiquement les cartes et panneaux ; les angles droits font partie de l’identité.",
+      "Don't utiliser IBM Plex Mono pour de longues phrases.",
+      "Don't compresser les colonnes au point de nuire à la lecture ; autoriser le défilement horizontal."
+    ]
+  }
+}
