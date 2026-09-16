@@ -52,16 +52,20 @@ enregistrer.
 À la validation, la saisie passe par `trim()` (les espaces de début et de fin
 sont retirés), puis :
 
-- si le résultat est **vide** → on n'enregistre rien, le titre d'origine est
-  conservé, et le champ se ferme ;
+- si le résultat est **vide** → rien n'est enregistré et **le champ reste
+  ouvert**, bordure rouge et message explicite sous la carte (« Le titre ne
+  peut pas être vide — Échap pour annuler ») ; l'erreur se lève dès la
+  première frappe, et `Escape` reste la sortie pour abandonner ;
 - si le résultat est **identique** au titre actuel → on n'enregistre rien (pas
   d'action inutile envoyée au reducer), le champ se ferme ;
 - sinon → l'action `EDIT_CARD` est envoyée avec le titre nettoyé, le champ se
   ferme.
 
-Un titre vide ne produit donc jamais d'état d'erreur visible : l'édition est
-simplement abandonnée. C'est un choix délibéré pour éviter d'avoir à gérer un
-feedback d'erreur dans une carte de cette taille.
+Le rejet d'un titre vide est donc **visible**. La première version revenait
+silencieusement au titre d'origine ; à l'usage, cette annulation muette se lit
+comme un bug — la saisie disparaît sans explication. Le `DESIGN.md` tranche
+d'ailleurs dans le même sens (section Inputs / Fields) : « utiliser un message
+textuel explicite en plus d'une variation colorée ».
 
 ## Changements par fichier
 
@@ -146,7 +150,9 @@ Scénarios à repasser à la main dans `npm run dev` :
 2. Taper un nouveau titre + `Enter` → le titre est modifié, le champ se ferme.
 3. Rouvrir l'édition + `Escape` → le titre d'origine est conservé.
 4. Rouvrir l'édition, modifier, cliquer ailleurs → la modification est enregistrée.
-5. Tout effacer + `Enter` → le titre d'origine est conservé.
+5. Tout effacer + `Enter` → le champ reste ouvert, bordure rouge et message
+   d'erreur ; taper un caractère lève l'erreur ; `Escape` ferme et restaure le
+   titre d'origine.
 6. Saisir `"  du texte  "` + `Enter` → le titre enregistré est `"du texte"`.
 7. Valider sans avoir rien changé → le titre est inchangé.
 8. Le reste du board (colonnes, compteurs, carte non éditée) n'a pas bougé.
@@ -163,6 +169,21 @@ dans `types.ts`, tous les `case` dans le `switch` du reducer. Puis revérifier
 que `npm run build` passe avant de continuer le rebase.
 
 Le rebase réécrivant l'historique, le push se fera avec `--force-with-lease`.
+
+## Couleur d'erreur
+
+Le `DESIGN.md` exigeait « une variation colorée » pour les erreurs sans définir
+aucune couleur d'erreur : sa palette n'avait que Launch Amber (réservé au focus,
+donc déjà l'état normal de ce champ) et Mission Complete, que la consigne
+interdit explicitement de détourner.
+
+Le manque est comblé dans cette PR, en accord avec Thomas : **Mission Abort**
+(`#d9614a`), rouge chaud pour rester dans la famille nocturne de la palette. Le
+nom suit la convention du système, où `mission-complete` désigne déjà l'état
+positif. Le token est ajouté aux trois sources — `.impeccable/design.json`
+(rampe tonale comprise), `DESIGN.md` (palette + section Inputs / Fields) et
+`app/globals.css` (`--color-abort`) — et le composant le consomme via
+`border-abort` / `text-abort`, sans valeur en dur.
 
 ## Dépendances
 

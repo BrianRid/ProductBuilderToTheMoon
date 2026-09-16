@@ -9,6 +9,7 @@
   --color-paper-dim: #9c9284;
   --color-signal: #ffb454;
   --color-complete: #7c9473;
+  --color-abort: #d9614a;
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
 }

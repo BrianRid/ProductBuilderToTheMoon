@@ -10,6 +10,7 @@ colors:
   telemetry-muted: "#9c9284"
   launch-amber: "#ffb454"
   mission-complete: "#7c9473"
+  mission-abort: "#d9614a"
 typography:
   title:
     fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
@@ -88,6 +89,7 @@ La palette associe des neutres chauds très sombres à deux signaux désaturés 
 ### Secondary
 
 - **Mission Complete** (`#7c9473`): indique exclusivement une progression terminée ou un état positif stabilisé.
+- **Mission Abort** (`#d9614a`): signale exclusivement une saisie refusée ou un état invalide ; rouge chaud, jamais écarlate, pour rester dans la famille nocturne de la palette.
 
 ### Neutral
 
@@ -168,7 +170,7 @@ Les surfaces structurelles et les cartes ont des angles droits. Elles évoquent 
 - **Style:** fond Raised Module, bordure Structural Line, rayon `6px`, texte Lunar Paper.
 - **Focus:** bordure Launch Amber et anneau externe ambre translucide.
 - **Placeholder / Disabled:** Telemetry Muted ; réduire l’opacité sans faire disparaître la bordure.
-- **Error:** utiliser un message textuel explicite en plus d’une variation colorée ; ne jamais détourner Mission Complete.
+- **Error:** bordure et message en Mission Abort, avec un message textuel explicite — la couleur seule ne suffit jamais. Ne jamais détourner Mission Complete.
 
 ### Status Pill
 
