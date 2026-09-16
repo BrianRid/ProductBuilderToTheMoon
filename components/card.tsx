@@ -48,7 +48,7 @@ export function Card({ card }: CardProps) {
               cancel();
             }
           }}
-          className="w-full border-b border-signal bg-transparent text-sm text-paper outline-none"
+          className="-mx-2 -my-1 w-[calc(100%+1rem)] rounded-md border border-signal bg-panel-raised px-2 py-1 text-sm text-paper outline-none ring-2 ring-signal/20"
         />
       ) : (
         <p onDoubleClick={startEditing}>{card.title}</p>

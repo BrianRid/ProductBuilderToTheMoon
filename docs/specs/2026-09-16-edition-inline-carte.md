@@ -120,8 +120,11 @@ haut, et une fonction `cancel()` ferme sans enregistrer. Le câblage :
 - `onKeyDown` sur l'input → `Enter` appelle `commit()`, `Escape` appelle
   `cancel()`.
 
-L'input reprend les classes de typographie du `<p>` pour que la carte ne
-« saute » pas visuellement au passage en édition.
+L'input suit la spec « Inputs / Fields » du `DESIGN.md` dans son état focus —
+fond Raised Module, bordure Launch Amber, rayon `6px`, anneau ambre translucide.
+Des marges négatives compensent son padding pour que le titre reste exactement
+à la même position qu'en lecture : la carte ne « saute » pas au passage en
+édition.
 
 Le numéro de série (`#01`) reste affiché dans les deux états.
 
