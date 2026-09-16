@@ -167,6 +167,8 @@ export function Card({ card }: CardProps) {
                 key={color}
                 type="button"
                 title={color}
+                // Block focus on mousedown so the date input's onBlur (which
+                // commits and closes the whole panel) never fires before this click.
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => toggleLabel(color)}
                 className={`h-4 w-4 rounded-full ${LABEL_BG[color]} ${

@@ -29,6 +29,14 @@ Décidé explicitement, à ne pas implémenter dans cette PR :
 - **Mise en avant désactivée en colonne « Terminé ».** Une carte en retard
   mais déplacée en Terminé n'affiche plus l'alerte : une tâche faite en
   retard n'a plus besoin d'alerter personne.
+- **La recherche (feature 6, déjà mergée) ne filtre pas par label ou par
+  date d'échéance.** Sa spec le signale explicitement comme une extension
+  probable (« le prédicat est isolé sur une ligne dans `board.tsx` : un `||`
+  suffit »). Décision : on ne le fait pas dans cette PR — l'issue #7 ne le
+  demande pas, et un label sans nom affiché se chercherait mal (chercher
+  "rust" pour trouver un point rouge n'est pas une recherche intuitive).
+  `components/board.tsx` n'est donc pas touché par cette feature, et le
+  prédicat existant continue de ne comparer que `card.title`.
 
 ## Comportement attendu
 
