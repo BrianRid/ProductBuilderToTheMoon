@@ -12,7 +12,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         onChange={(event) => onChange(event.target.value)}
         placeholder="Rechercher une carte…"
         aria-label="Rechercher une carte"
-        className="w-full border border-line bg-panel-raised px-3 py-2 text-sm text-paper transition-colors placeholder:text-paper-dim focus:border-signal focus:outline-none"
+        className="w-full rounded-[6px] border border-line bg-panel-raised px-3 py-2 text-sm text-paper shadow-[0_2px_8px_rgb(0_0_0/0.18)] transition-colors placeholder:text-paper-dim focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/30"
       />
     </div>
   );

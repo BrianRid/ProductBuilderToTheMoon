@@ -84,6 +84,14 @@ redécouvre pas en review.
 Si l'un de ces trois points vous gêne, c'est le moment de le dire — pas après
 le merge.
 
+### Conformité au design system
+
+`DESIGN.md` a été mergé sur `main` (PR #8) après l'écriture de cette feature.
+La `SearchBar` a été alignée sur la spec **Inputs / Fields** : fond Raised
+Module, bordure Structural Line, rayon `6px`, texte Lunar Paper, placeholder
+Telemetry Muted, padding `8px 12px`, ombre *Module Rest* au repos, et au focus
+une bordure Launch Amber doublée d'un anneau ambre translucide.
+
 ## 5. Interactions avec les autres features
 
 Ma feature introduit une situation que le board ne connaissait pas : **une
@@ -125,5 +133,6 @@ Alignée sur la checklist du template de PR et sur la CI (`lint` + `build`).
 - [x] Les six états du §4 vérifiés dans un navigateur
 - [x] Aucune dépendance ajoutée
 - [x] Aucune modification de `types.ts` ni de `reducer.ts`, conformément à l'issue #6
+- [x] `SearchBar` conforme à la spec Inputs / Fields de `DESIGN.md`
 - [ ] Branche à jour avec `main` au moment du merge
 - [ ] Une review approuvée
