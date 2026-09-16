@@ -13,4 +13,8 @@ export interface BoardState {
 // Extension seam: each workshop feature adds its own variant here.
 export type BoardAction =
   | { type: "NOOP" }
-  | { type: "EDIT_CARD"; id: string; title: string };
+  | { type: "EDIT_CARD"; id: string; title: string }
+  | { type: "MOVE_CARD"; cardId: string; targetColumnId: ColumnId }
+  | { type: "DELETE_CARD"; id: string }
+  | { type: "RESTORE_CARD"; card: Card; index: number }
+  | { type: "ADD_CARD"; title: string };
