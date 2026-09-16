@@ -16,6 +16,15 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
           card.id === action.id ? { ...card, title: action.title } : card,
         ),
       };
+    case "MOVE_CARD":
+      return {
+        ...state,
+        cards: state.cards.map((card) =>
+          card.id === action.cardId
+            ? { ...card, columnId: action.targetColumnId }
+            : card
+        ),
+      };
     default:
       return state;
   }
