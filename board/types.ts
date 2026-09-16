@@ -23,3 +23,4 @@ export type BoardAction =
   | { type: "RESTORE_CARD"; card: Card; index: number }
   | { type: "SET_LABEL"; id: string; label: LabelColor | null }
   | { type: "SET_DUE_DATE"; id: string; dueDate: string | null };
+  | { type: "ADD_CARD"; title: string };
