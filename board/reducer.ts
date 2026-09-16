@@ -9,6 +9,13 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
   switch (action.type) {
     case "NOOP":
       return state;
+    case "EDIT_CARD":
+      return {
+        ...state,
+        cards: state.cards.map((card) =>
+          card.id === action.id ? { ...card, title: action.title } : card,
+        ),
+      };
     default:
       return state;
   }
