@@ -22,7 +22,25 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
         cards: state.cards.map((card) =>
           card.id === action.cardId
             ? { ...card, columnId: action.targetColumnId }
-            : card
+            : card,
+        ),
+      };
+    case "SET_LABEL":
+      return {
+        ...state,
+        cards: state.cards.map((card) =>
+          card.id === action.id
+            ? { ...card, label: action.label ?? undefined }
+            : card,
+        ),
+      };
+    case "SET_DUE_DATE":
+      return {
+        ...state,
+        cards: state.cards.map((card) =>
+          card.id === action.id
+            ? { ...card, dueDate: action.dueDate ?? undefined }
+            : card,
         ),
       };
     case "DELETE_CARD":

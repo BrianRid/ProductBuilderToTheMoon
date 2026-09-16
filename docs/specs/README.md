@@ -32,6 +32,6 @@ Exemple : `docs/specs/2026-09-16-edition-inline-carte.md`
 | 4 | Suppression avec confirmation + undo | [2026-09-16-suppression-undo-carte.md](./2026-09-16-suppression-undo-carte.md) |
 | 5 | Persistance localStorage | [2026-09-16-persistance-localstorage.md](./2026-09-16-persistance-localstorage.md) |
 | 6 | Recherche / filtre de cartes | [2026-09-16-recherche-filtre-cartes.md](./2026-09-16-recherche-filtre-cartes.md) |
-| 7 | Labels colorés + date d'échéance | — |
+| 7 | Labels colorés + date d'échéance | [2026-09-16-labels-dates-carte.md](./2026-09-16-labels-dates-carte.md) |
 
 Ajoute la ligne de ta feature dans ce tableau quand tu déposes ta spec.

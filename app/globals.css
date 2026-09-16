@@ -10,6 +10,10 @@
   --color-signal: #ffb454;
   --color-complete: #7c9473;
   --color-abort: #d9614a;
+  --color-label-rust: #b5623f;
+  --color-label-plum: #8a5a78;
+  --color-label-slate: #6f6b63;
+  --color-label-moss: #7d7a4f;
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
 }
