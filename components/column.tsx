@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import type { Card as CardType, ColumnId } from "@/board/types";
 import { Card } from "./card";
@@ -7,9 +8,16 @@ interface ColumnProps {
   title: string;
   cards: CardType[];
   indicatorClassName: string;
+  footer?: ReactNode;
 }
 
-export function Column({ id, title, cards, indicatorClassName }: ColumnProps) {
+export function Column({
+  id,
+  title,
+  cards,
+  indicatorClassName,
+  footer,
+}: ColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id });
 
   return (
@@ -25,6 +33,7 @@ export function Column({ id, title, cards, indicatorClassName }: ColumnProps) {
         {cards.map((card) => (
           <Card key={card.id} card={card} />
         ))}
+        {footer}
       </div>
     </div>
   );

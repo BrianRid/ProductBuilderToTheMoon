@@ -12,6 +12,7 @@ import {
 } from "@dnd-kit/core";
 import { useBoard } from "@/board/board-context";
 import type { ColumnId } from "@/board/types";
+import { AddCardForm } from "./add-card-form";
 import { Column } from "./column";
 import { CardOverlay } from "./card";
 import { SearchBar } from "./search-bar";
@@ -78,6 +79,12 @@ export function Board() {
               title={column.title}
               indicatorClassName={column.indicatorClassName}
               cards={visibleCards.filter((card) => card.columnId === column.id)}
+              footer={
+                // A filtered column is a view, not a place to append: a card
+                // created under an active search could land outside the filter
+                // and never show up.
+                column.id === "todo" && !search ? <AddCardForm /> : undefined
+              }
             />
           ))}
         </div>

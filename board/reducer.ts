@@ -39,6 +39,22 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
           ...state.cards.slice(action.index),
         ],
       };
+    case "ADD_CARD": {
+      // The serial shown on a card is derived from the digits of its id
+      // (see components/card.tsx), hence a running sequence rather than a uuid.
+      const lastSerial = state.cards.reduce((max, card) => {
+        const serial = Number(card.id.replace(/\D/g, ""));
+        return Number.isFinite(serial) && serial > max ? serial : max;
+      }, 0);
+
+      return {
+        ...state,
+        cards: [
+          ...state.cards,
+          { id: `card-${lastSerial + 1}`, title: action.title, columnId: "todo" },
+        ],
+      };
+    }
     default:
       return state;
   }
