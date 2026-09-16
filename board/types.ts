@@ -1,9 +1,13 @@
 export type ColumnId = "todo" | "in-progress" | "done";
 
+export type LabelColor = "rust" | "plum" | "slate" | "moss";
+
 export interface Card {
   id: string;
   title: string;
   columnId: ColumnId;
+  label?: LabelColor;
+  dueDate?: string; // ISO "YYYY-MM-DD"
 }
 
 export interface BoardState {
@@ -16,4 +20,6 @@ export type BoardAction =
   | { type: "EDIT_CARD"; id: string; title: string }
   | { type: "MOVE_CARD"; cardId: string; targetColumnId: ColumnId }
   | { type: "DELETE_CARD"; id: string }
-  | { type: "RESTORE_CARD"; card: Card; index: number };
+  | { type: "RESTORE_CARD"; card: Card; index: number }
+  | { type: "SET_LABEL"; id: string; label: LabelColor | null }
+  | { type: "SET_DUE_DATE"; id: string; dueDate: string | null };

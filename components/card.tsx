@@ -2,13 +2,26 @@ import { useId, useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { toast } from "sonner";
 import { useBoard } from "@/board/board-context";
-import type { Card as CardType } from "@/board/types";
+import type { Card as CardType, LabelColor } from "@/board/types";
 
 const ERROR_BORDER = "border-abort ring-abort/25";
 const FOCUS_BORDER = "border-signal ring-signal/20";
 
 interface CardProps {
   card: CardType;
+}
+
+const LABEL_COLORS: LabelColor[] = ["rust", "plum", "slate", "moss"];
+
+const LABEL_BG: Record<LabelColor, string> = {
+  rust: "bg-label-rust",
+  plum: "bg-label-plum",
+  slate: "bg-label-slate",
+  moss: "bg-label-moss",
+};
+
+function todayISO() {
+  return new Date().toISOString().slice(0, 10);
 }
 
 export function Card({ card }: CardProps) {
@@ -19,13 +32,18 @@ export function Card({ card }: CardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [draft, setDraft] = useState(card.title);
   const [error, setError] = useState(false);
+  const [isEditingMeta, setIsEditingMeta] = useState(false);
+  const [draftDueDate, setDraftDueDate] = useState(card.dueDate ?? "");
 
   const errorId = useId();
   const serial = card.id.replace(/\D/g, "").padStart(2, "0");
+  const isOverdue =
+    !!card.dueDate && card.dueDate < todayISO() && card.columnId !== "done";
 
   function startEditing() {
     setDraft(card.title);
     setError(false);
+    setIsEditingMeta(false);
     setIsEditing(true);
   }
 
@@ -65,6 +83,28 @@ export function Card({ card }: CardProps) {
     });
   }
 
+  function openMetaEditor() {
+    setDraftDueDate(card.dueDate ?? "");
+    setIsEditing(false);
+    setIsEditingMeta(true);
+  }
+
+  // Dispatched immediately on click, not held in a draft: there is nothing
+  // to "undo" on Escape, the pill selection is already the source of truth.
+  function toggleLabel(color: LabelColor) {
+    dispatch({ type: "SET_LABEL", id: card.id, label: card.label === color ? null : color });
+  }
+
+  function commitDueDate() {
+    dispatch({ type: "SET_DUE_DATE", id: card.id, dueDate: draftDueDate || null });
+    setIsEditingMeta(false);
+  }
+
+  function cancelMeta() {
+    setDraftDueDate(card.dueDate ?? "");
+    setIsEditingMeta(false);
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -73,7 +113,9 @@ export function Card({ card }: CardProps) {
       className={`group relative cursor-grab touch-none border-l-2 bg-panel-raised px-3 py-2.5 text-sm text-paper shadow-[0_2px_8px_rgb(0_0_0_/_0.18)] transition-colors ${
         isDragging
           ? "border-line opacity-40"
-          : "border-line hover:border-signal hover:shadow-[0_6px_18px_rgb(0_0_0_/_0.24)]"
+          : isOverdue
+            ? "border-abort hover:shadow-[0_6px_18px_rgb(0_0_0_/_0.24)]"
+            : "border-line hover:border-signal hover:shadow-[0_6px_18px_rgb(0_0_0_/_0.24)]"
       }`}
     >
       <button
@@ -117,7 +159,54 @@ export function Card({ card }: CardProps) {
       ) : (
         <p onDoubleClick={startEditing}>{card.title}</p>
       )}
-      <p className="mt-1 font-mono text-[11px] text-paper-dim">#{serial}</p>
+      {isEditingMeta ? (
+        <div className="-mx-2 mt-1 flex flex-col gap-2 rounded-md border border-signal bg-panel-raised p-2">
+          <div className="flex gap-1.5">
+            {LABEL_COLORS.map((color) => (
+              <button
+                key={color}
+                type="button"
+                title={color}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => toggleLabel(color)}
+                className={`h-4 w-4 rounded-full ${LABEL_BG[color]} ${
+                  card.label === color
+                    ? "ring-2 ring-signal ring-offset-1 ring-offset-panel-raised"
+                    : ""
+                }`}
+              />
+            ))}
+          </div>
+          <input
+            type="date"
+            autoFocus
+            value={draftDueDate}
+            onChange={(event) => setDraftDueDate(event.target.value)}
+            onBlur={commitDueDate}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                commitDueDate();
+              } else if (event.key === "Escape") {
+                cancelMeta();
+              }
+            }}
+            className="rounded-md border border-line bg-panel-raised px-2 py-1 text-xs text-paper outline-none focus:border-signal focus:ring-2 focus:ring-signal/20"
+          />
+        </div>
+      ) : (
+        <div
+          onClick={openMetaEditor}
+          className="mt-1 flex cursor-pointer items-center gap-2 font-mono text-[11px] text-paper-dim"
+        >
+          {card.label && (
+            <span className={`h-2 w-2 rounded-full ${LABEL_BG[card.label]}`} title={card.label} />
+          )}
+          {card.dueDate && (
+            <span className={isOverdue ? "text-abort" : undefined}>{card.dueDate}</span>
+          )}
+          <span>#{serial}</span>
+        </div>
+      )}
     </div>
   );
 }

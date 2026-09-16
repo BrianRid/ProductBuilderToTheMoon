@@ -73,9 +73,9 @@ deux champs.
 - **Date** : affichée en `IBM Plex Mono`, à côté de la pastille. Absente
   si aucune échéance.
 - **Retard** : si `dueDate` est strictement antérieure à la date du jour
-  **et** `card.columnId !== "done"` → le texte de la date passe dans une
-  couleur d'alerte dédiée (à ajouter au `DESIGN.md`, distincte de `rust`
-  pour ne pas laisser croire qu'il s'agit du label), et la bordure
+  **et** `card.columnId !== "done"` → le texte de la date passe en
+  **Mission Abort** (`--color-abort`, réutilisée de la feature 3 plutôt que
+  d'introduire une cinquième couleur — voir Notes Git), et la bordure
   latérale de la carte (déjà utilisée pour l'état hover) prend cette même
   couleur au repos.
 
@@ -143,13 +143,14 @@ optionnels (pas de `null` dans le type `Card`).
 Ajouter une petite palette de labels, distincte de Launch Amber (réservé
 aux signaux actifs) et Mission Complete (réservé à l'état terminé) :
 
-- **Rust** — alerte/urgent
-- **Plum** — idée/en réflexion
-- **Slate** — en pause/bloqué
-- **Moss** — neutre/faible priorité
+- **Rust**, **Plum**, **Slate**, **Moss** — quatre pastilles au choix,
+  sans signification imposée.
 
-Plus une couleur d'alerte de retard dédiée (distincte de `rust`), utilisée
-uniquement pour l'échéance dépassée — jamais comme couleur de label.
+Pour le retard, **pas de cinquième couleur** : on réutilise **Mission
+Abort**, déjà introduite par la feature 3 pour son propre état d'erreur
+(titre vide). Sa définition dans `DESIGN.md` est élargie pour couvrir
+explicitement « une échéance de carte dépassée », en plus de « une saisie
+refusée ou un état invalide ».
 
 ### `components/card.tsx`
 
@@ -199,6 +200,31 @@ moment d'ouvrir la PR : garder **tous les variants** de l'union
 `BoardAction` et **tous les `case`** du `switch`, puis revérifier
 `npm run build` avant de continuer le rebase (`git rebase --continue`,
 puis `git push --force-with-lease`).
+
+### Rebase déjà effectué pendant le développement
+
+`main` a avancé pendant l'écriture de cette feature : la feature 3 a reçu
+un correctif (titre vide → refus + `Mission Abort`), et la feature 5
+(persistance) a mergé sa spec. Un rebase sur `origin/main` a donc été fait
+avant l'ouverture de la PR, avec deux résolutions à noter pour la review :
+
+1. **`components/card.tsx`** : conflit réel entre l'ajout du state `error`
+   (feature 3) et nos states `isEditingMeta`/`draftDueDate`. Résolu en
+   gardant les deux — ce sont des états indépendants sur le même
+   composant. Ajout au passage : ouvrir un éditeur ferme désormais l'autre
+   (`startEditing` coupe `isEditingMeta`, `openMetaEditor` coupe
+   `isEditing`), pour éviter d'avoir les deux panneaux ouverts en même
+   temps sur une même carte — un cas que ni l'une ni l'autre spec ne
+   couvrait.
+2. **`DESIGN.md` / `app/globals.css`** : la feature 3 a introduit
+   `Mission Abort` / `--color-abort` pour son état d'erreur, un rouge
+   d'alerte quasi identique à la couleur que cette spec prévoyait
+   d'ajouter. Plutôt que garder deux rouges redondants dans la palette,
+   la couleur dédiée au retard a été retirée : le retard réutilise
+   `Mission Abort`, dont la définition a été élargie en conséquence (voir
+   « Changements par fichier › `DESIGN.md` » ci-dessus). `docs/specs/README.md`
+   avait aussi un doublon de lignes après le rebase automatique (features 5
+   et 6 dupliquées) — nettoyé manuellement, sans lien avec cette feature.
 
 ## Dépendances
 

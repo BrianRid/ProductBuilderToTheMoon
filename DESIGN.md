@@ -11,6 +11,10 @@ colors:
   launch-amber: "#ffb454"
   mission-complete: "#7c9473"
   mission-abort: "#d9614a"
+  label-rust: "#b5623f"
+  label-plum: "#8a5a78"
+  label-slate: "#6f6b63"
+  label-moss: "#7d7a4f"
 typography:
   title:
     fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
@@ -89,7 +93,7 @@ La palette associe des neutres chauds très sombres à deux signaux désaturés 
 ### Secondary
 
 - **Mission Complete** (`#7c9473`): indique exclusivement une progression terminée ou un état positif stabilisé.
-- **Mission Abort** (`#d9614a`): signale exclusivement une saisie refusée ou un état invalide ; rouge chaud, jamais écarlate, pour rester dans la famille nocturne de la palette.
+- **Mission Abort** (`#d9614a`): signale exclusivement une saisie refusée, un état invalide, ou une échéance de carte dépassée ; rouge chaud, jamais écarlate, pour rester dans la famille nocturne de la palette.
 
 ### Neutral
 
@@ -101,6 +105,14 @@ La palette associe des neutres chauds très sombres à deux signaux désaturés 
 - **Telemetry Muted** (`#9c9284`): métadonnées, compteurs et texte secondaire.
 
 **The Signal Scarcity Rule.** Launch Amber doit rester rare : il indique une action, un focus ou une activité réelle, jamais une décoration de fond.
+
+### Labels
+
+Une petite palette dédiée aux labels de cartes, volontairement distincte de Launch Amber et Mission Complete pour ne jamais entrer en concurrence avec eux :
+
+- **Label Rust** (`#b5623f`), **Label Plum** (`#8a5a78`), **Label Slate** (`#6f6b63`), **Label Moss** (`#7d7a4f`) : quatre pastilles de label au choix, sans signification imposée.
+
+Une échéance dépassée réutilise **Mission Abort** (voir Secondary) plutôt qu'une cinquième couleur : le rouge d'alerte reste unique dans toute l'interface, qu'il signale un titre vide ou un retard.
 
 ## Typography
 
@@ -164,6 +176,17 @@ Les surfaces structurelles et les cartes ont des angles droits. Elles évoquent 
 - **Shadow Strategy:** Module Rest, puis Module Active lors d’une interaction.
 - **Border:** repère latéral Structural Line de `2px`, remplacé par Launch Amber au survol ou pendant le déplacement.
 - **Internal Padding:** `10px 12px` ; métadonnée séparée du titre par `4px`.
+
+### Label Pill
+
+- **Style:** pastille pleine de `8px` de diamètre, une des quatre couleurs Label ; pas de texte.
+- **Selected state (dans l'éditeur):** anneau Launch Amber, offset `1px`.
+- **Usage:** au plus une par carte, affichée à côté de la date et du numéro de série.
+
+### Due Date
+
+- **Style:** `IBM Plex Mono`, `11px`, couleur Telemetry Muted par défaut.
+- **Overdue:** couleur Mission Abort dès que la date est dépassée, sauf si la carte est dans la colonne Terminé.
 
 ### Inputs / Fields
 
