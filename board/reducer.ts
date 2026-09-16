@@ -25,6 +25,20 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
             : card
         ),
       };
+    case "DELETE_CARD":
+      return {
+        ...state,
+        cards: state.cards.filter((card) => card.id !== action.id),
+      };
+    case "RESTORE_CARD":
+      return {
+        ...state,
+        cards: [
+          ...state.cards.slice(0, action.index),
+          action.card,
+          ...state.cards.slice(action.index),
+        ],
+      };
     default:
       return state;
   }

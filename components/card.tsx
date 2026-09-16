@@ -1,5 +1,6 @@
 import { useId, useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
+import { toast } from "sonner";
 import { useBoard } from "@/board/board-context";
 import type { Card as CardType } from "@/board/types";
 
@@ -11,7 +12,7 @@ interface CardProps {
 }
 
 export function Card({ card }: CardProps) {
-  const { dispatch } = useBoard();
+  const { state, dispatch } = useBoard();
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: card.id,
   });
@@ -50,17 +51,39 @@ export function Card({ card }: CardProps) {
     setIsEditing(false);
   }
 
+  function handleDelete() {
+    if (!window.confirm("Supprimer cette carte ?")) return;
+
+    const index = state.cards.findIndex((c) => c.id === card.id);
+    dispatch({ type: "DELETE_CARD", id: card.id });
+
+    toast("Carte supprimée", {
+      action: {
+        label: "Annuler",
+        onClick: () => dispatch({ type: "RESTORE_CARD", card, index }),
+      },
+    });
+  }
+
   return (
     <div
       ref={setNodeRef}
       {...(isEditing ? {} : listeners)}
       {...attributes}
-      className={`cursor-grab touch-none border-l-2 bg-panel-raised px-3 py-2.5 text-sm text-paper shadow-[0_2px_8px_rgb(0_0_0_/_0.18)] transition-colors ${
+      className={`group relative cursor-grab touch-none border-l-2 bg-panel-raised px-3 py-2.5 text-sm text-paper shadow-[0_2px_8px_rgb(0_0_0_/_0.18)] transition-colors ${
         isDragging
           ? "border-line opacity-40"
           : "border-line hover:border-signal hover:shadow-[0_6px_18px_rgb(0_0_0_/_0.24)]"
       }`}
     >
+      <button
+        type="button"
+        onClick={handleDelete}
+        aria-label="Supprimer la carte"
+        className="absolute right-1.5 top-1.5 rounded-md px-1.5 py-0.5 text-paper-dim opacity-0 transition-opacity hover:text-paper group-hover:opacity-100"
+      >
+        ×
+      </button>
       {isEditing ? (
         <>
           <input

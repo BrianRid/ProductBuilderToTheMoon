@@ -14,4 +14,6 @@ export interface BoardState {
 export type BoardAction =
   | { type: "NOOP" }
   | { type: "EDIT_CARD"; id: string; title: string }
-  | { type: "MOVE_CARD"; cardId: string; targetColumnId: ColumnId };
+  | { type: "MOVE_CARD"; cardId: string; targetColumnId: ColumnId }
+  | { type: "DELETE_CARD"; id: string }
+  | { type: "RESTORE_CARD"; card: Card; index: number };
