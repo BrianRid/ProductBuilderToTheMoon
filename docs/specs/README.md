@@ -30,6 +30,8 @@ Exemple : `docs/specs/2026-09-16-edition-inline-carte.md`
 | 2 | Formulaire d'ajout de carte | — |
 | 3 | Édition inline d'une carte | [2026-09-16-edition-inline-carte.md](./2026-09-16-edition-inline-carte.md) |
 | 4 | Suppression avec confirmation + undo | — |
+| 5 | Persistance localStorage | [2026-09-16-persistance-localstorage.md](./2026-09-16-persistance-localstorage.md) |
+| 6 | Recherche / filtre de cartes | — |
 | 5 | Persistance localStorage | — |
 | 6 | Recherche / filtre de cartes | [2026-09-16-recherche-filtre-cartes.md](./2026-09-16-recherche-filtre-cartes.md) |
 | 7 | Labels colorés + date d'échéance | — |
